@@ -3,509 +3,593 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arnav Saraf - Portfolio</title>
+  <title>Arnav Saraf Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-
-    body { box-sizing: border-box; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
-      --primary-color: #64ffda;
-      --secondary-color: #ff6b9d;
-      --accent-color: #ffd93d;
-      --text-color: #e8f4f8;
-      --bg-color: #0a0e1a;
-      --bg-overlay: rgba(10, 14, 26, 0.85);
-      --name-variable-color: #9cdcfe;
-      --name-property-color: #dcdcaa;
-      --name-dot-color: #d4d4d4;
+      --primary: #2493ff;
+      --secondary: #f8fafc;
+      --card-bg: #fff;
+      --text: #21243d;
+      --border: #e3e7ef;
+      --radius: 7px;
+      --shadow: 0 2px 6px rgba(36,147,255,.04);
+      --bg: #f5f7fb;
+      --overlay: rgba(245,247,251,0.82);
+      --sectionpad: 3.5rem 0;
+    }
+    [data-theme="dark"] {
+      --bg: #1a1c23;
+      --secondary: #222432;
+      --card-bg: #222432;
+      --text: #eaeaea;
+      --border: #25273a;
+      --overlay: rgba(26,28,35,0.93);
+    }
+    [data-theme="blue"] {
+      --primary: #1462ac;
+      --bg: #eaf5fd;
+      --secondary: #d0e4fa;
+      --card-bg: #e1ebfc;
+      --text: #1D2F4A;
+      --border: #bfdcf9;
+      --overlay: rgba(224,236,252,0.9);
     }
 
     body {
+      background: var(--bg);
+      color: var(--text);
       font-family: 'JetBrains Mono', monospace;
-      background: var(--bg-color);
-      color: var(--text-color);
+      margin: 0;
+      line-height: 1.7;
+      min-height: 100vh;
       overflow-x: hidden;
-      height: 100%;
     }
 
-    html { height: 100%; scroll-behavior: smooth; }
+    .container { max-width: 900px; margin: auto; padding: 0 1rem; }
 
-    /* Animated Background */
-    .bg-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-
-    /* Loading Screen */
-    .loading-screen {
-      position: fixed; inset: 0; width: 100%; height: 100%; background: #000;
-      display: flex; justify-content: center; align-items: center;
-      z-index: 1000; transition: opacity 0.6s ease-out;
-    }
-    .typing-text { font-size: 4rem; font-weight: 900; color: var(--primary-color); text-shadow: 0 0 20px var(--primary-color); letter-spacing: 0.1em; will-change: transform, opacity; }
-    .cursor { animation: blink 1s infinite; }
-    @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
-
-    /* Navigation */
     .navbar {
-      position: fixed; top: 0; width: 100%; background: rgba(0,0,0,0.9);
-      backdrop-filter: blur(10px); padding: 1rem 2rem; z-index: 100;
-      transition: all 0.3s ease; border-bottom: 1px solid var(--primary-color);
+      background: var(--overlay);
+      border-bottom: 1px solid var(--border);
+      padding: .7rem 0;
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      z-index: 100;
+      box-shadow: var(--shadow);
+      transition: background .33s;
     }
-    .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
-    .logo { font-size: 1.5rem; font-weight: 900; color: #fff; text-shadow: 0 0 10px var(--primary-color), 0 0 5px rgba(0,0,0,0.8); }
-    .nav-links { display: flex; list-style: none; gap: 2rem; }
-    .nav-links a { color: #fff; text-decoration: none; font-weight: 700; transition: all 0.3s ease; padding: 0.5rem 1rem; border-radius: 5px; text-shadow: 0 0 5px rgba(0,0,0,0.8); }
-    .nav-links a:hover { color: var(--primary-color); background: rgba(100,255,218,0.1); text-shadow: 0 0 10px var(--primary-color); transform: translateY(-2px); }
-
-    /* Theme Switcher */
-    .theme-switcher { display: flex; gap: 0.5rem; }
-    .theme-btn { width: 30px; height: 30px; border: none; border-radius: 50%; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 10px rgba(255,255,255,0.3); }
-    .theme-btn:hover { transform: scale(1.2); box-shadow: 0 0 20px rgba(255,255,255,0.6); }
-    .theme-green { background: linear-gradient(45deg, #64ffda, #4ecdc4); }
-    .theme-purple { background: linear-gradient(45deg, #bb86fc, #cf6679); }
-    .theme-orange { background: linear-gradient(45deg, #ffab40, #ff7043); }
-    .theme-blue   { background: linear-gradient(45deg, #42a5f5, #26c6da); }
-
-    /* Sections */
-    .section { min-height: 100vh; padding: 6rem 2rem 4rem; display: flex; align-items: center; justify-content: center; }
-    .container { max-width: 1200px; width: 100%; margin: 0 auto; }
-
-    /* Hero */
-    .hero { text-align: center; }
-    .hero h1 { font-size: 4rem; font-weight: 600; margin-bottom: 1rem; text-shadow: 0 0 30px var(--primary-color); animation: glow 2s ease-in-out infinite alternate; opacity: 0; } /* will fade in after intro aligns */
-    .name-variable { color: var(--name-variable-color); }
-    .name-property { color: var(--name-property-color); }
-    .name-dot { color: var(--name-dot-color); }
-    .hero p { font-size: 1.2rem; color: var(--accent-color); margin-bottom: 2rem; }
-    .resume-btn { background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); color: var(--bg-color); border: none; padding: 1rem 2rem; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; margin-top: 1rem; box-shadow: 0 4px 15px rgba(100,255,218,0.3); }
-    .resume-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 25px rgba(100,255,218,0.5); filter: brightness(1.2); }
-    @keyframes glow { from { text-shadow: 0 0 20px var(--primary-color); } to { text-shadow: 0 0 40px var(--primary-color), 0 0 60px var(--primary-color); } }
-
-    /* Section Headers */
-    .section-header { text-align: center; margin-bottom: 4rem; }
-    .section-header h2 { font-size: 3rem; font-weight: 900; color: var(--primary-color); text-shadow: 0 0 20px var(--primary-color); margin-bottom: 1rem; }
-
-    /* About */
-    .about-content { max-width: 800px; margin: 0 auto; text-align: center; }
-    .about-text { font-size: 1.2rem; line-height: 1.8; color: var(--text-color); background: var(--bg-overlay); padding: 3rem; border-radius: 15px; border: 2px solid var(--primary-color); box-shadow: 0 0 20px rgba(100,255,218,0.3); transition: all 0.3s ease; }
-    .about-text:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(100,255,218,0.5); }
-
-    /* Projects */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-top: 2rem; }
-    .project-card { background: var(--bg-overlay); border-radius: 15px; padding: 2rem; border: 2px solid var(--accent-color); transition: all 0.3s ease; cursor: pointer; }
-    .project-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 40px rgba(0,212,255,0.4); border-color: var(--primary-color); }
-    .project-image { width: 100%; height: 200px; background: linear-gradient(45deg, var(--primary-color), var(--accent-color)); border-radius: 10px; margin-bottom: 1rem; display: block; overflow: hidden; }
-    .project-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .project-card h3 { font-size: 1.5rem; color: var(--primary-color); margin-bottom: 1rem; }
-    .project-card p { color: var(--text-color); margin-bottom: 1.5rem; line-height: 1.6; }
-    .details-btn { background: linear-gradient(45deg, var(--primary-color), var(--accent-color)); color: #000; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-family: 'JetBrains Mono', monospace; font-weight: 700; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; }
-    .details-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,255,65,0.4); filter: brightness(1.2); }
-
-    /* THEME-SPECIFIC BUTTONS FOR PROJECT CARDS */
-    html[data-theme="green"] .project-card .details-btn {
-      background: linear-gradient(45deg, #0f766e, #14b8a6);
-      color: #e6fffa;
-      border: 1px solid rgba(20, 184, 166, 0.35);
-      box-shadow: 0 8px 20px rgba(20, 184, 166, 0.25);
+    .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-weight: 800; font-size: 1.35rem; color: var(--primary); letter-spacing: .02em; }
+    .nav-links {
+      list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0;
     }
-    html[data-theme="green"] .project-card .details-btn:hover,
-    html[data-theme="green"] .project-card .details-btn:focus-visible {
-      filter: brightness(1.05);
-      box-shadow: 0 12px 26px rgba(20, 184, 166, 0.35);
-      outline: none;
+    .nav-links a {
+      color: var(--text); font-size: .97rem; font-weight: 600; text-decoration: none;
+      border-radius: var(--radius); padding: .45rem .7rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { background: var(--secondary); color: var(--primary); }
+
+    .theme-selector {
+      margin-left: .7rem;
+      padding: .3rem .7rem;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--border);
+      background: var(--secondary);
+      color: var(--primary);
+      font-size: .9rem;
+      cursor: pointer;
     }
 
-    html[data-theme="orange"] .project-card .details-btn {
-      background: linear-gradient(45deg, #c2410c, #fb923c);
-      color: #ffffff;
-      border: 1px solid rgba(251, 146, 60, 0.45);
-      box-shadow: 0 8px 20px rgba(234, 88, 12, 0.3);
+    section {
+      padding: var(--sectionpad);
+      min-height: 80vh;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .7s cubic-bezier(.39,.65,.56,1), transform .7s cubic-bezier(.39,.65,.56,1);
+      will-change: opacity, transform;
     }
-    html[data-theme="orange"] .project-card .details-btn:hover,
-    html[data-theme="orange"] .project-card .details-btn:focus-visible {
-      filter: brightness(1.06);
-      box-shadow: 0 12px 26px rgba(234, 88, 12, 0.4);
-      outline: none;
+    section.visible {
+      opacity: 1;
+      transform: none;
+      transition-delay: .04s;
     }
 
-    /* Experience & Skills */
-    .experience-grid, .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
-    .experience-item, .skill-item { background: var(--bg-overlay); padding: 2rem; border-radius: 10px; border: 2px solid var(--secondary-color); transition: all 0.3s ease; }
-    .experience-item:hover, .skill-item:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(255,0,128,0.3); border-color: var(--primary-color); }
-    .experience-item h3, .skill-item h3 { color: var(--secondary-color); margin-bottom: 1rem; font-size: 1.3rem; }
-
-    /* Contact */
-    .contact-content { text-align: center; background: var(--bg-overlay); padding: 4rem; border-radius: 20px; border: 2px solid var(--primary-color); box-shadow: 0 0 30px rgba(0,255,65,0.3); }
-    .contact-btn { background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); color: #000; border: none; padding: 1rem 2rem; border-radius: 30px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; margin-top: 2rem; text-decoration: none; display: inline-block; }
-    .contact-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 15px 30px rgba(0,255,65,0.5); filter: brightness(1.3); }
-
-    /* Click ripple */
-    .click-effect { position: fixed; width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%); pointer-events: none; z-index: 50; animation: clickExpand 0.6s ease-out forwards; }
-    @keyframes clickExpand { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
-
-    /* Scroll-reveal */
-    .reveal { opacity: 0; transform: translateY(24px); }
-    .reveal.visible { opacity: 1; transform: none; transition: opacity .6s ease-out, transform .6s ease-out; }
-    @media (prefers-reduced-motion: reduce) { .reveal, .reveal.visible { transform: none; transition: none; } }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .nav-links { gap: 1rem; }
-      .hero h1 { font-size: 2.5rem; }
-      .typing-text { font-size: 2rem; }
-      .about-content { padding: 0 1rem; }
-      .section-header h2 { font-size: 2rem; }
-      .projects-grid { grid-template-columns: 1fr; }
+    .section-header {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1.3rem;
+      line-height: 1.14;
+      letter-spacing: .01em;
     }
-      /* Prevent scrolling when intro is playing */
-    html.lock-scroll, body.lock-scroll { overflow: hidden; height: 100%; }
+
+    /* HERO */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .hero-title {
+      font-size: 2.7rem;
+      margin-bottom: .6rem;
+      letter-spacing: .05em;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity .5s;
+    }
+    .hero-subtitle {
+      color: #5675ac;
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: .8rem;
+    }
+    .resume-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: .8rem 1.3rem;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-top: 1.1rem;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      transition: background 0.15s, transform 0.17s;
+    }
+    .resume-btn:hover { background: #1673c7; transform: scale(1.04); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.3rem 1.1rem 1.17rem;
+      transition: box-shadow 0.19s, border 0.19s;
+    }
+    /* Full uncropped image in hobbies */
+    .card img {
+      border-radius: 4px;
+      width: 100%;
+      height: auto;
+      max-height: 320px;
+      object-fit: contain;
+      margin-bottom: .9rem;
+      background: var(--secondary);
+      display: block;
+    }
+    .details-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: .55rem 1.1rem;
+      border-radius: 18px;
+      font-weight: 700;
+      font-size: .96rem;
+      margin-top: .7rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.12s, transform 0.16s;
+      display: inline-block;
+    }
+    .details-btn:hover { background: #1673c7; transform: scale(1.03); }
+
+    .info-block {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1.3rem 1.7rem;
+      box-shadow: var(--shadow);
+      font-size: 1.07rem;
+      margin: 0 auto 1.4rem auto;
+      max-width: 650px;
+    }
+
+    /* Loading + typing (no cursor span) */
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      z-index: 200;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: auto;
+      transition: opacity .7s;
+    }
+    .typing-text {
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: .09em;
+    }
+
+    /* Canvas bg (no mouse-follow glow, just static fill) */
+    .bg-canvas {
+      position: fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      z-index:-1;
+      pointer-events:none;
+    }
+
+    /* Dog emoji burst container styles */
+    .emoji-burst {
+      position: absolute;
+      pointer-events: none;
+      left: 0; top: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      overflow: visible;
+      pointer-events: none;
+    }
+    .emoji-burst-emoji {
+      position: absolute;
+      font-size: 2rem;
+      user-select: none;
+      will-change: transform, opacity;
+      animation: burst 1.2s cubic-bezier(.41,1.5,.65,1) forwards;
+    }
+    @keyframes burst {
+      from {
+        opacity: 1;
+        transform: translate(0,0) scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) scale(1.4) rotate(30deg);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container { padding: 0 .18rem; }
+      .section-header { font-size: 1.13rem; }
+      .hero-title { font-size: 1.43rem; }
+      section { padding: 2rem 0; }
+      .grid { grid-template-columns: 1fr; }
+    }
+    .lock-scroll { overflow: hidden !important; }
   </style>
 </head>
 <body>
-  <!-- Animated Background Canvas -->
+  <!-- Static Background Canvas -->
   <canvas class="bg-canvas" id="bgCanvas"></canvas>
 
-  <!-- Loading Screen with Typing Animation -->
+  <!-- Loading with Typing Animation -->
   <div class="loading-screen" id="loadingScreen">
     <div class="typing-text" id="typingText"></div>
   </div>
 
-  <!-- Navigation -->
   <nav class="navbar">
-    <div class="nav-container">
+    <div class="container nav-flex">
       <div class="logo">Arnav Saraf</div>
       <ul class="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li><!-- added -->
+        <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#hobbies">Hobbies</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <div class="theme-switcher">
-        <button class="theme-btn theme-green" onclick="changeTheme('green')"></button>
-        <button class="theme-btn theme-purple" onclick="changeTheme('purple')"></button>
-        <button class="theme-btn theme-orange" onclick="changeTheme('orange')"></button>
-        <button class="theme-btn theme-blue" onclick="changeTheme('blue')"></button>
-      </div>
+      <select id="themeSelector" class="theme-selector" title="Theme">
+        <option value="">Light</option>
+        <option value="dark">Dark</option>
+        <option value="blue">Blue</option>
+      </select>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section id="home" class="section">
-    <div class="container">
-      <div class="hero">
-        <h1><span class="name-variable">arnav</span><span class="name-dot">_</span><span class="name-property">saraf</span></h1>
-        <p>Waterloo Electrical Engineering Student, Looking for W26 Co-op</p>
-        <a href="https://drive.google.com/file/d/1fZQ-sy1JjL2o5HSqQnbDxcmJloFllwB5/view" class="resume-btn" target="_blank" rel="noopener noreferrer">Download Resume</a>
+  <main>
+    <!-- Hero -->
+    <section id="home">
+      <div class="container">
+        <div class="hero-title" id="heroTitle">arnav_saraf</div>
+        <div class="hero-subtitle">
+          Waterloo Electrical Engineering Student<br />
+          Looking for W26 Co-op
+        </div>
+        <a href="https://drive.google.com/file/d/1fZQ-sy1JjL2o5HSqQnbDxcmJloFllwB5/view"
+           class="resume-btn" target="_blank" rel="noopener noreferrer">
+          Download Resume
+        </a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- About Section -->
-  <section id="about" class="section reveal">
-    <div class="container">
-      <div class="section-header">
-        <h2>About Me</h2>
-      </div>
-      <div class="about-content">
-        <div class="about-text">
-          <p>I’m a first-year Electrical Engineering student at the University of Waterloo. I like work where drawings turn into things you can test—PCBs, robots, and small devices. I learn by building, keeping notes, and iterating.</p>
+    <!-- About -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-header">About Me</h2>
+        <div class="info-block">
+          I’m a first-year Electrical Engineering student at the University of Waterloo.<br>
+          I like work where drawings turn into things you can test—PCBs, robots, and small devices.<br>
+          I learn by building, keeping notes, and iterating.
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Projects Section -->
-  <section id="projects" class="section reveal">
-    <div class="container">
-      <div class="section-header">
-        <h2>Projects</h2>
-      </div>
-      <div class="projects-grid">
-        <!-- Project 1 -->
-        <div class="project-card">
-          <a class="project-image" href="https://docs.google.com/document/d/1on-VO0tYvfKUWJ5uWTOMl_as87gN10TwcNVzQaik_nY/edit?usp=sharing" target="_blank" rel="noopener noreferrer">
-            <img src="img/sdSchematic.png" alt="CAN Logger image" loading="lazy" width="1200" height="800">
-          </a>
-          <h3>CAN Logger</h3>
-          <p>Created a CAN logger in Altium to store drone flight data on an SD card to act as a "black box".</p>
-          <a href="https://docs.google.com/document/d/1on-VO0tYvfKUWJ5uWTOMl_as87gN10TwcNVzQaik_nY/edit?usp=sharing" class="details-btn" target="_blank" rel="noopener noreferrer">View Details</a>
-        </div>
-        <!-- Project 2 -->
-        <div class="project-card">
-          <a class="project-image" href="https://docs.google.com/document/d/1WirqfEkASP_vqWMwpqWKYijGpoq9yqcMrtykkbcdfLE/edit?usp=sharing" target="_blank" rel="noopener noreferrer">
-            <img src="img/FRCelevator.png" alt="Project 2 image" loading="lazy" width="1200" height="800">
-          </a>
-          <h3>FRC elevator</h3>
-          <p>Designed, prototyped and constructed an elevator mechanism to score FRC gameobjects.</p>
-          <a href="https://docs.google.com/document/d/1WirqfEkASP_vqWMwpqWKYijGpoq9yqcMrtykkbcdfLE/edit?usp=sharing" class="details-btn" target="_blank" rel="noopener noreferrer">View Details</a>
-        </div>
-        <!-- Project 3 -->
-        <div class="project-card">
-          <a class="project-image" href="https://docs.google.com/document/d/1dOmY6XCTjeEFz2NsJ_imODBVkRRBvex3PEFBkAWFq2Y/edit?tab=t.0#heading=h.fs5nf15p5czj" target="_blank" rel="noopener noreferrer">
-            <img src="img/basePic.jpg" alt="Project 3 image" loading="lazy" width="1200" height="800">
-          </a>
-          <h3>FRC Base Design/Assembly</h3>
-          <p>Designed, and wired an FRC base using welding, 3D printing and stress tests.</p>
-          <a href="https://docs.google.com/document/d/1dOmY6XCTjeEFz2NsJ_imODBVkRRBvex3PEFBkAWFq2Y/edit?tab=t.0#heading=h.fs5nf15p5czj" class="details-btn" target="_blank" rel="noopener noreferrer">View Details</a>
-        </div>
-        <!-- Project 4 -->
-        <div class="project-card">
-          <a class="project-image" href="https://docs.google.com/document/d/1hmQ2oFIqS7l-_OiWnjm05VqmEpehHuo6KhvSAOlggI8/edit?tab=t.0" target="_blank" rel="noopener noreferrer">
-            <img src="img/boat.png" alt="Project 4 image" loading="lazy" width="1200" height="800">
-          </a>
-          <h3>Solar Boat</h3>
-          <p>Led design team to build a solar powered boat for the UBC pyhsics olympics. Designed, tested and soldered various mechanisms and components.</p>
-          <a href="https://docs.google.com/document/d/1hmQ2oFIqS7l-_OiWnjm05VqmEpehHuo6KhvSAOlggI8/edit?tab=t.0" class="details-btn" target="_blank" rel="noopener noreferrer">View Details</a>
+    <!-- Projects -->
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-header">Projects</h2>
+        <div class="grid">
+          <div class="card">
+            <img src="img/sdSchematic.png" alt="CAN Logger schematic" loading="lazy" />
+            <h3>CAN Logger</h3>
+            <p>Created a CAN logger in Altium to store drone flight data on an SD card as a "black box".</p>
+            <a href="https://docs.google.com/document/d/1on-VO0tYvfKUWJ5uWTOMl_as87gN10TwcNVzQaik_nY/edit?usp=sharing"
+               class="details-btn" target="_blank">View Details</a>
+          </div>
+          <div class="card">
+            <img src="img/FRCelevator.png" alt="FRC elevator" loading="lazy" />
+            <h3>FRC Elevator</h3>
+            <p>Designed, prototyped, and constructed an elevator mechanism for FRC game objects.</p>
+            <a href="https://docs.google.com/document/d/1WirqfEkASP_vqWMwpqWKYijGpoq9yqcMrtykkbcdfLE/edit?usp=sharing"
+               class="details-btn" target="_blank">View Details</a>
+          </div>
+          <div class="card">
+            <img src="img/basePic.jpg" alt="FRC base design" loading="lazy" />
+            <h3>FRC Base Design/Assembly</h3>
+            <p>Designed and wired an FRC robot base using welding, 3D printing, and stress testing.</p>
+            <a href="https://docs.google.com/document/d/1dOmY6XCTjeEFz2NsJ_imODBVkRRBvex3PEFBkAWFq2Y/edit?tab=t.0#heading=h.fs5nf15p5czj"
+               class="details-btn" target="_blank">View Details</a>
+          </div>
+          <div class="card">
+            <img src="img/boat.png" alt="Solar Boat" loading="lazy" />
+            <h3>Solar Boat</h3>
+            <p>Led design team to build a solar powered boat for the UBC Physics Olympics. Designed, tested, and soldered components.</p>
+            <a href="https://docs.google.com/document/d/1hmQ2oFIqS7l-_OiWnjm05VqmEpehHuo6KhvSAOlggI8/edit?tab=t.0"
+               class="details-btn" target="_blank">View Details</a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Experience Section -->
-  <section id="experience" class="section reveal">
-    <div class="container">
-      <div class="section-header"><h2>Experience</h2></div>
-      <div class="experience-grid">
-        <div class="experience-item">
-          <h3>Electric Team Member (Waterloo Aerial Robotics Group)</h3>
-          <p><strong>Duration:</strong>Aug 2025 - Present</p>
-          <p>- Designed a CAN logger using the STM32 and SDMMC protocol to log flight data to an SD card (Altium).</p>
-          <p>- Applied electrical theory to create efficient PCB layouts considering resistance, heat, and impedance.</p>
-          <p>- Manufactured PCBs: ordering, soldering, and validation testing.</p>
-        </div>
-        <div class="experience-item">
-          <h3>Robotics Team Member - Ten Ton Robotics Academy(FRC)</h3>
-          <p><strong>Duration:</strong> December 2024 - June 2025</p>
-          <p>- Used collaborative CAD to plan complex mechanisms and robot layouts.</p>
-          <p>- Rapidly prototyped designs using wood, aluminum, and 3D-printed parts.</p>
-          <p>- Assembled electronics with a repairable wiring layout; soldering and cable management.</p>
-          <p>- Manufactured parts with 3-axis CNC, 3D printer, and laser cutter.</p>
-          <p>- Recorded and analyzed match data in Excel to find weak spots and strategies.</p>
-        </div>
-        <div class="experience-item">
-          <h3>Team Lead - Ten Ton Robotics Academy (VRC)</h3>
-          <p><strong>Duration:</strong> September 2020 - June 2024</p>
-          <p>- Led a team for 4 years across design, programming, and strategy; qualified for provincials.</p>
-          <p>- Iterated and documented improvements, keeping detailed build/design logs.</p>
-          <p>- Programmed autonomous routines in C++ with PID for precision and reliability.</p>
-          <p>- Planned designs and records in Fusion 360 and Onshape.</p>
+    <!-- Experience -->
+    <section id="experience">
+      <div class="container">
+        <h2 class="section-header">Experience</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Electric Team Member (Waterloo Aerial Robotics Group)</h3>
+            <p><strong>Aug 2025 - Present</strong></p>
+            <ul>
+              <li>Designed CAN logger using STM32 and SDMMC protocol (Altium).</li>
+              <li>Efficient PCB layout, considering resistance, heat, and impedance.</li>
+              <li>Manufactured, ordered, soldered, and validated PCBs.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Robotics Team Member - Ten Ton Robotics Academy (FRC)</h3>
+            <p><strong>Dec 2024 - June 2025</strong></p>
+            <ul>
+              <li>Collaborative CAD for mechanisms and robot layouts.</li>
+              <li>Prototyped designs with wood, aluminum, and 3D-printed parts.</li>
+              <li>Electronics assembly, soldering, cable management.</li>
+              <li>Manufactured parts via 3-axis CNC, 3D printer, and laser cutter.</li>
+              <li>Analyzed match data in Excel for strategy.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Team Lead - Ten Ton Robotics Academy (VRC)</h3>
+            <p><strong>Sept 2020 - June 2024</strong></p>
+            <ul>
+              <li>Led team across design, programming, strategy; qualified for provincials.</li>
+              <li>Documented continuous improvements and build logs.</li>
+              <li>Programmed autonomous routines in C++ with PID.</li>
+              <li>Planned in Fusion 360, Onshape.</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Skills Section -->
-  <section id="skills" class="section reveal">
-    <div class="container">
-      <div class="section-header"><h2>Skills</h2></div>
-      <div class="skills-grid">
-        <div class="skill-item"><h3>EDM</h3><p>Altium (footprint/symbol creation, schematic design, layout design and optimization)</p></div>
-        <div class="skill-item"><h3>Programming</h3><p>Python, C++, HTML, MATLAB</p></div>
-        <div class="skill-item"><h3>Tools</h3><p>3D printing, Laser Cutting, Multi-Meter, Oscilloscope, Soldering</p></div>
-        <div class="skill-item"><h3>Other</h3><p>Technical Writing, Lab Safety, Version Control</p></div>
+    <!-- Skills -->
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-header">Skills</h2>
+        <div class="grid">
+          <div class="card"><h3>EDM</h3><p>Altium: footprint/symbol creation, schematic, layout optimization.</p></div>
+          <div class="card"><h3>Programming</h3><p>Python, C++, HTML, MATLAB.</p></div>
+          <div class="card"><h3>Tools</h3><p>3D printing, laser cutting, multimeter, oscilloscope, soldering.</p></div>
+          <div class="card"><h3>Other</h3><p>Technical writing, lab safety, version control.</p></div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="section reveal">
-    <div class="container">
-      <div class="section-header"><h2>Get In Touch</h2></div>
-      <div class="contact-content">
-        <h3>Let's Work Together!</h3>
-        <p>I'm always interested in new opportunities and exciting projects. Whether you have a question or just want to say hi, feel free to reach out!</p>
-        <a href="mailto:arnavs1971@gmail.com" class="contact-btn">Contact Me</a>
+    <!-- Hobbies (updated for full image and dog emoji) -->
+    <section id="hobbies">
+      <div class="container">
+        <h2 class="section-header">Hobbies</h2>
+        <div class="grid">
+          <div class="card">
+            <img src="img/squashsquash.png" alt="Squash" loading="lazy" />
+            <p>I've been playing squash for 5 years. I'm currently on the Waterloo Varsity Squash team.</p>
+          </div>
+          <div class="card">
+            <img src="img/outside.png" alt="Hiking" loading="lazy" />
+            <p>Being from Vancouver, I like hiking and the outdoors. My favourite hike is the Chief in Squamish.</p>
+          </div>
+          <div class="card">
+            <img id="dogImg" src="img/dogdog.png" alt="My Dog" loading="lazy" style="cursor:pointer;" />
+            <p>I have a dog named Lego.</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-header">Get In Touch</h2>
+        <div class="info-block" style="text-align: center;">
+          <h3>Let's Work Together!</h3>
+          <p>I'm always interested in new opportunities and projects.<br>Whether you have a question or just want to say hi, reach out!</p>
+          <a href="mailto:arnavs1971@gmail.com" class="resume-btn">Contact Me</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Emoji Burst Container -->
+  <div class="emoji-burst" id="emojiBurst"></div>
 
   <script>
-    // Typing Animation + align-to-title exit
+    const TYPE_SPEED = 136;
+    const AFTER_TYPE_DELAY = 320;
+    const INITIAL_DELAY = 520;
+
     const typingText = document.getElementById('typingText');
     const loadingScreen = document.getElementById('loadingScreen');
-    const heroTitle = document.querySelector('.hero h1');
+    const heroTitle = document.getElementById('heroTitle');
     const nameText = "arnav_saraf";
     let i = 0;
 
-    // Scroll lock helpers to prevent scrolling during the intro animation
-    const _scrollKeys = ['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '];
-    function _keyBlocker(e){ if(_scrollKeys.includes(e.key)) { e.preventDefault(); } }
-    function _evtBlocker(e){ e.preventDefault(); }
-    function lockScroll(){
-      document.documentElement.classList.add('lock-scroll');
-      document.body.classList.add('lock-scroll');
-      window.addEventListener('wheel', _evtBlocker, { passive:false });
-      window.addEventListener('touchmove', _evtBlocker, { passive:false });
-      window.addEventListener('keydown', _keyBlocker, { passive:false });
-    }
-    function unlockScroll(){
-      document.documentElement.classList.remove('lock-scroll');
-      document.body.classList.remove('lock-scroll');
-      window.removeEventListener('wheel', _evtBlocker);
-      window.removeEventListener('touchmove', _evtBlocker);
-      window.removeEventListener('keydown', _keyBlocker);
-    }
-
     function typeWriter() {
       if (i < nameText.length) {
-        const char = nameText.charAt(i);
-        let colorClass = '';
-        if (i < 5) colorClass = 'name-variable';
-        else if (i === 5) colorClass = 'name-dot';
-        else colorClass = 'name-property';
-        typingText.innerHTML += `<span class="${colorClass}">${char}</span>`;
-        i++; setTimeout(typeWriter, 150);
+        typingText.textContent += nameText.charAt(i);
+        i++;
+        setTimeout(typeWriter, TYPE_SPEED);
       } else {
-        // Add caret, then align animation -> fade out screen -> reveal hero title
-        typingText.innerHTML += '<span class="cursor">|</span>';
-        setTimeout(() => {
-          alignIntroToTitle();
-        }, 300);
+        setTimeout(() => { alignIntroToTitle(); }, AFTER_TYPE_DELAY);
       }
     }
 
     function alignIntroToTitle() {
-      // Compute vector from typing text center to hero title center
       const t = typingText.getBoundingClientRect();
       const h = heroTitle.getBoundingClientRect();
       const dx = (h.left + h.width/2) - (t.left + t.width/2);
       const dy = (h.top + h.height/2) - (t.top + t.height/2);
-      typingText.style.transition = 'transform 700ms ease, opacity 500ms ease';
-      typingText.style.transform = `translate(${dx}px, ${dy}px)`;
-      // Crossfade overlay and reveal hero title
+
+      typingText.style.transition =
+        'transform 700ms cubic-bezier(.39,.65,.56,1), opacity 500ms cubic-bezier(.39,.65,.56,1)';
+      typingText.style.transform = `translate(${dx}px,${dy}px) scale(.92)`;
+
       setTimeout(() => {
         loadingScreen.style.opacity = '0';
-        heroTitle.style.transition = 'opacity 400ms ease 150ms';
         heroTitle.style.opacity = '1';
-        setTimeout(() => { loadingScreen.style.display = 'none'; unlockScroll(); }, 650);
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+          unlockScroll();
+        }, 700);
       }, 740);
     }
 
-    window.addEventListener('load', () => { lockScroll(); setTimeout(typeWriter, 500); });
+    function lockScroll() { document.body.classList.add('lock-scroll'); }
+    function unlockScroll() { document.body.classList.remove('lock-scroll'); }
 
-    // Background Canvas Animation
+    window.addEventListener('load', () => {
+      lockScroll();
+      setTimeout(typeWriter, INITIAL_DELAY);
+    });
+
+    // Static canvas background (no mouse-follow glow)
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
-    let mouseX = 0, mouseY = 0;
-    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    resizeCanvas(); window.addEventListener('resize', resizeCanvas);
-    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
-    function animateBackground() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const gradient = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 300);
-      const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
-      const secondaryColor = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').trim();
-      gradient.addColorStop(0, primaryColor + '20');
-      gradient.addColorStop(0.5, secondaryColor + '10');
-      gradient.addColorStop(1, 'transparent');
-      ctx.fillStyle = gradient; ctx.fillRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < 50; i++) {
-        const x = (mouseX + Math.sin(Date.now() * 0.001 + i) * 100) % canvas.width;
-        const y = (mouseY + Math.cos(Date.now() * 0.001 + i) * 100) % canvas.height;
-        ctx.beginPath(); ctx.arc(x, y, 1, 0, Math.PI * 2); ctx.fillStyle = primaryColor + '40'; ctx.fill();
-      }
-      requestAnimationFrame(animateBackground);
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      drawStaticBg();
     }
-    animateBackground();
-
-    // Click ripple effect
-    document.addEventListener('click', (e) => {
-      const clickEffect = document.createElement('div');
-      clickEffect.className = 'click-effect';
-      clickEffect.style.left = (e.clientX - 50) + 'px';
-      clickEffect.style.top = (e.clientY - 50) + 'px';
-      document.body.appendChild(clickEffect);
-      setTimeout(() => clickEffect.remove(), 600);
-    });
-
-    // Theme switcher
-    function changeTheme(theme) {
-      const root = document.documentElement;
-      // tag the current theme so CSS can target buttons per theme
-      document.documentElement.setAttribute('data-theme', theme);
-      switch(theme) {
-        case 'green':
-          root.style.setProperty('--primary-color', '#0d9488');
-          root.style.setProperty('--secondary-color', '#dc2626');
-          root.style.setProperty('--accent-color', '#d97706');
-          root.style.setProperty('--bg-color', '#f0f4f8');
-          root.style.setProperty('--text-color', '#1f2937');
-          root.style.setProperty('--bg-overlay', 'rgba(255, 255, 255, 0.9)');
-          document.documentElement.style.setProperty('--name-variable-color', '#0369a1');
-          document.documentElement.style.setProperty('--name-property-color', '#b45309');
-          document.documentElement.style.setProperty('--name-dot-color', '#6b7280');
-          break;
-        case 'purple':
-          root.style.setProperty('--primary-color', '#bb86fc');
-          root.style.setProperty('--secondary-color', '#cf6679');
-          root.style.setProperty('--accent-color', '#03dac6');
-          root.style.setProperty('--bg-color', '#121212');
-          root.style.setProperty('--text-color', '#ffffff');
-          root.style.setProperty('--bg-overlay', 'rgba(18, 18, 18, 0.9)');
-          document.documentElement.style.setProperty('--name-variable-color', '#9cdcfe');
-          document.documentElement.style.setProperty('--name-property-color', '#dcdcaa');
-          document.documentElement.style.setProperty('--name-dot-color', '#d4d4d4');
-          break;
-        case 'orange':
-          root.style.setProperty('--primary-color', '#ea580c');
-          root.style.setProperty('--secondary-color', '#dc2626');
-          root.style.setProperty('--accent-color', '#0891b2');
-          root.style.setProperty('--bg-color', '#fff8e1');
-          root.style.setProperty('--text-color', '#292524');
-          root.style.setProperty('--bg-overlay', 'rgba(255, 248, 225, 0.9)');
-          document.documentElement.style.setProperty('--name-variable-color', '#0369a1');
-          document.documentElement.style.setProperty('--name-property-color', '#b45309');
-          document.documentElement.style.setProperty('--name-dot-color', '#6b7280');
-          break;
-        case 'blue':
-          root.style.setProperty('--primary-color', '#42a5f5');
-          root.style.setProperty('--secondary-color', '#26c6da');
-          root.style.setProperty('--accent-color', '#ffab40');
-          root.style.setProperty('--bg-color', '#0d1421');
-          root.style.setProperty('--text-color', '#e3f2fd');
-          root.style.setProperty('--bg-overlay', 'rgba(13, 20, 33, 0.9)');
-          document.documentElement.style.setProperty('--name-variable-color', '#9cdcfe');
-          document.documentElement.style.setProperty('--name-property-color', '#dcdcaa');
-          document.documentElement.style.setProperty('--name-dot-color', '#d4d4d4');
-          break;
-      }
+    function drawStaticBg() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = "#2493ff10";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
     }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
-    // Smooth scrolling nav
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', (e) => {
+      anchor.addEventListener('click', function(e) {
         const href = anchor.getAttribute('href');
-        if (href.length > 1) { // ignore just '#'
+        if (href.length > 1) {
           e.preventDefault();
           const target = document.querySelector(href);
-          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (target) target.scrollIntoView({behavior:'smooth',block:'start'});
         }
       });
     });
 
-    // Navbar background on scroll
-    window.addEventListener('scroll', () => {
-      const navbar = document.querySelector('.navbar');
-      navbar.style.background = (window.scrollY > 100) ? 'rgba(0,0,0,0.95)' : 'rgba(0,0,0,0.8)';
+    // Theme selector
+    const themeSelector = document.getElementById('themeSelector');
+    themeSelector.addEventListener('change', function() {
+      if (themeSelector.value) {
+        document.documentElement.setAttribute('data-theme', themeSelector.value);
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
     });
-
-    // IntersectionObserver for section fade-ins
-    const observer = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -15%', threshold: 0.1 }) : null;
-
-    if (observer) {
-      document.querySelectorAll('.section.reveal').forEach(el => observer.observe(el));
-    } else {
-      // Fallback: just show sections
-      document.querySelectorAll('.section.reveal').forEach(el => el.classList.add('visible'));
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute('data-theme','dark');
+      themeSelector.value = 'dark';
     }
+
+    // Section fade-in
+    const obs = ('IntersectionObserver' in window)
+      ? new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              obs.unobserve(e.target);
+            }
+          });
+        }, {rootMargin:'0px 0px -17%',threshold:.11})
+      : null;
+
+    if (obs) {
+      document.querySelectorAll('section').forEach(el => obs.observe(el));
+    } else {
+      document.querySelectorAll('section').forEach(el => el.classList.add('visible'));
+    }
+
+    // ------- DOG AND BONE EMOJI BURST ------- //
+    const dogImg = document.getElementById('dogImg');
+    const emojiBurst = document.getElementById('emojiBurst');
+    const emojis = ["🐶","🦴","🐕","🦴","🐾"];
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+    dogImg.addEventListener('click', function(e) {
+      // Get image position for local burst origin
+      const rect = dogImg.getBoundingClientRect();
+      const originX = rect.left + rect.width / 2;
+      const originY = rect.top + rect.height / 2 + window.scrollY; // absolute page coords
+
+      for (let i = 0; i < 18; i++) {
+        const emoji = document.createElement('span');
+        emoji.className = 'emoji-burst-emoji';
+        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.left = originX + 'px';
+        emoji.style.top = (originY - 36) + 'px';
+
+        // Random direction/angle/radius
+        const angle = random(Math.PI * .65, Math.PI * 2.35); // spread 120deg up
+        const radius = random(80, 260); // px
+        const dx = Math.cos(angle) * radius;
+        const dy = Math.sin(angle) * radius * random(0.7,1.25);
+
+        emoji.style.setProperty('--dx', dx + 'px');
+        emoji.style.setProperty('--dy', dy + 'px');
+        emojiBurst.appendChild(emoji);
+
+        // Remove after animation
+        setTimeout(() => emoji.remove(), 1400);
+      }
+    });
   </script>
 </body>
 </html>

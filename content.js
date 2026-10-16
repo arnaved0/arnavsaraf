@@ -21,7 +21,7 @@ window.portfolioContent = {
       // Describe your cover image here for accessibility.
       imageAlt: "Illustrated aircraft and radio signal arcs",
       link: "https://docs.google.com/document/d/1nEfThNBL2hFGmHhkD_LWBQplTAdufMOF/edit",
-      description: "This project features the design and implementation of an aviation receiver system tailored to capture Automatic Dependent Surveillance-Broadcast (ADS-B) transmissions at 1.09 GHz. The hardware integrates a custom microstrip patch antenna modeled with a coupled-line bandpass filter and simulated in Ansys HFSS. This optimized front-end interfaces directly with a Software-Defined Radio (SDR) to decode real-time aircraft telemetry.",
+      description: "ADS-B receiver combining a custom patch antenna, bandpass filter and SDR to decode aircraft telemetry.",
     },
     // PROJECT 2  
     {
@@ -32,7 +32,7 @@ window.portfolioContent = {
       // Describe your cover image here for accessibility.
       imageAlt: "Illustrated radar sweep and detected targets",
       link: "https://docs.google.com/document/d/1bPIoLNgSs5qAKqPfghf8_KdPklqAOcG8/edit",
-      description: "This project develops a 2.4 GHz continuous-wave (CW) Doppler radar intended to estimate the speed of moving objects. A shared RF oscillator drives the transmitting antenna and serves as the local oscillator for a receiver mixer. The Doppler-shifted echo is translated to a low-frequency signal, conditioned using analog filters and amplifiers, and prepared for processing by an Arduino Nano.",
+      description: "Continuous-wave radar that translates reflected RF signals into a conditioned Doppler signal for speed measurement.",
     },
     // PROJECT 3
     {
@@ -43,7 +43,7 @@ window.portfolioContent = {
       // Describe your cover image here for accessibility.
       imageAlt: "Illustrated digital chip and pulse waveform",
       link: "https://docs.google.com/document/d/13BJlaQaq8XgfFDfZAPOtqQ4pkigBaaWg/edit",
-      description: "Designed an FPGA-based PPG heart rate monitor that processes real-time pulse signals, detects heartbeats, calculates intervals, and outputs a smoothed BPM value. The project includes digital filtering, adaptive peak detection, moving-average BPM calculation, and an SPI interface for reading a 12-bit external ADC. MATLAB and Questa were used to validate the design before a real-life test.",
+      description: "Real-time PPG processing with digital filtering, adaptive heartbeat detection, smoothed BPM and an SPI ADC interface.",
     },
   ],
 

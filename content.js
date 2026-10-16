@@ -51,8 +51,19 @@ window.portfolioContent = {
   experiences: [
     // EXPERIENCE 1
     {
-      company: "Quantum Technology Corp.",
-      role: "Electrical Engineering Intern",
+       company: "MPI Morheat",
+      role: "Electrical Engineering Intern (Sept 2026 - Present)",
+      // Add or remove bullet points by adding or deleting a quoted line.
+      bullets: [
+        "Automated heater power calculations and quoting workflows using Java and Python.",
+        "Drafted sensor and heater concepts and incorporated design revisions in AutoCAD and Fusion 360.",
+        "Soldered connectors for RTD and thermocouple sensor assemblies.",
+      ],
+    },
+    // EXPERIENCE 2
+    {
+    company: "Quantum Technology Corp.",
+      role: "Electrical Engineering Intern (Jan 2026 - May 2026)",
       // Add or remove bullet points by adding or deleting a quoted line.
       bullets: [
         "Designed and assembled control panels in AutoCAD Electrical for industrial gas systems, following applicable IEC, CSA and UL requirements.",
@@ -60,17 +71,6 @@ window.portfolioContent = {
         "Tested panels and PCBs using oscilloscopes and bench equipment; documented quality-control results.",
         "Led electrical design for a mobile helium recovery system, including 480 V power distribution and purity and flow monitoring.",
         "Participated in HAZOP discussions and prepared an electrical safety presentation.",
-      ],
-    },
-    // EXPERIENCE 2
-    {
-      company: "MPI Morheat",
-      role: "Electrical Engineering Intern",
-      // Add or remove bullet points by adding or deleting a quoted line.
-      bullets: [
-        "Automated heater power calculations and quoting workflows using Java and Python.",
-        "Drafted sensor and heater concepts and incorporated design revisions in AutoCAD and Fusion 360.",
-        "Soldered connectors for RTD and thermocouple sensor assemblies.",
       ],
     },
   ],

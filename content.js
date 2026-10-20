@@ -74,7 +74,7 @@ window.portfolioContent = {
       company: "MPI Morheat",
 
       // COMPANY LOGO: Use an image URL or a path inside assets/.
-      logo: "https://ca.indeed.com/cmp/Mpi-Morheat,-Inc.",
+      logo: "https://d2q79iu7y748jz.cloudfront.net/s/_logo/ddd0da8c9083bdb4cc035a2631f39223",
 
       role: "Electrical Engineering Intern (Sept 2026 - Present)",
 
@@ -92,7 +92,7 @@ window.portfolioContent = {
       company: "Quantum Technology Corp.",
 
       // COMPANY LOGO: Use an image URL or a path inside assets/.
-      logo: "https://ca.linkedin.com/company/quantum-technology-corp",
+      logo: "https://media.licdn.com/dms/image/v2/C560BAQGrq70rC7nPlg/company-logo_200_200/company-logo_200_200/0/1630605293903/quantum_technology_corp_logo?e=2147483647&v=beta&t=Pb9TAKAdkrww_OeTa9f1GDbPErjXBdeYL0m8SYbzLbA",
 
       role: "Electrical Engineering Intern (Jan 2026 - May 2026)",
 

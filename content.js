@@ -58,6 +58,7 @@ window.portfolioContent = {
         "Automated heater power calculations and quoting workflows using Java and Python.",
         "Drafted sensor and heater concepts and incorporated design revisions in AutoCAD and Fusion 360.",
         "Soldered connectors for RTD and thermocouple sensor assemblies.",
+        "Refined mechanical and electrical CAD drawings in AutoCAD and Altium Designer, adapting schematics to meet custom client order specifications and manufacturing constraints.",
       ],
     },
     // EXPERIENCE 2

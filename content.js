@@ -28,7 +28,7 @@ window.portfolioContent = {
       title: "High Frequency Doppler Radar",
       category: "RF & analog electronics",
       // CHANGE COVER IMAGE: Put your photo in assets/ and change this path.
-      image: "assets/radarlay.png",
+      image: "assets/radar.png",
       // Describe your cover image here for accessibility.
       imageAlt: "Illustrated radar sweep and detected targets",
       link: "https://docs.google.com/document/d/1bPIoLNgSs5qAKqPfghf8_KdPklqAOcG8/edit",
